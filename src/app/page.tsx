@@ -76,11 +76,7 @@ export default function AdminPage() {
   // Chargement des préférences sauvegardées
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const savedAddress = localStorage.getItem("admin_receiver_address");
-      const savedAmount = localStorage.getItem("admin_amount");
       const savedToken = localStorage.getItem("admin_token");
-      if (savedAddress) setReceiverAddress(savedAddress);
-      if (savedAmount) setAmount(savedAmount);
       if (savedToken === "USDT" || savedToken === "USDC") setToken(savedToken);
 
       const auth = sessionStorage.getItem("admin_auth");
@@ -95,8 +91,6 @@ export default function AdminPage() {
   useEffect(() => {
     if (!isMounted || typeof window === "undefined" || !isAuthenticated) return;
 
-    localStorage.setItem("admin_receiver_address", receiverAddress);
-    localStorage.setItem("admin_amount", amount);
     localStorage.setItem("admin_token", token);
 
     if (!receiverAddress) {
