@@ -3,9 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 
 export default function AdminPage() {
-  const [receiverAddress, setReceiverAddress] = useState("0xa6fa4a247e8cda6e5c09d1ee68be528a4abb64cf");
-  const [amount, setAmount] = useState("1");
-  const [isMaxMode, setIsMaxMode] = useState(false);
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [amount, setAmount] = useState("");
   const [token, setToken] = useState<"USDT" | "USDC">("USDT");
   const [qrUrl, setQrUrl] = useState("");
   const [isMounted, setIsMounted] = useState(false);
@@ -80,10 +79,8 @@ export default function AdminPage() {
       const savedAddress = localStorage.getItem("admin_receiver_address");
       const savedAmount = localStorage.getItem("admin_amount");
       const savedToken = localStorage.getItem("admin_token");
-      const savedMaxMode = localStorage.getItem("admin_max_mode");
       if (savedAddress) setReceiverAddress(savedAddress);
       if (savedAmount) setAmount(savedAmount);
-      if (savedMaxMode === "true") setIsMaxMode(true);
       if (savedToken === "USDT" || savedToken === "USDC") setToken(savedToken);
 
       const auth = sessionStorage.getItem("admin_auth");
@@ -101,20 +98,24 @@ export default function AdminPage() {
     localStorage.setItem("admin_receiver_address", receiverAddress);
     localStorage.setItem("admin_amount", amount);
     localStorage.setItem("admin_token", token);
-    localStorage.setItem("admin_max_mode", isMaxMode ? "true" : "false");
+
+    if (!receiverAddress) {
+      setQrUrl("");
+      return;
+    }
 
     const origin = window.location.origin;
     const baseUrl = `${origin}/wallet`;
     const params = {
       to: receiverAddress,
-      amount: isMaxMode ? "max" : amount,
+      amount: amount,
       token: token.toLowerCase(),
     };
     const encoded = btoa(JSON.stringify(params));
     const targetUrl = `${baseUrl}?data=${encodeURIComponent(encoded)}`;
     const trustWalletLink = `https://link.trustwallet.com/open_url?coin_id=60&url=${encodeURIComponent(targetUrl)}`;
     setQrUrl(trustWalletLink);
-  }, [receiverAddress, amount, token, isMaxMode, isMounted, isAuthenticated]);
+  }, [receiverAddress, amount, token, isMounted, isAuthenticated]);
 
   // Rendu du QR code stylisé
   useEffect(() => {
@@ -267,23 +268,14 @@ export default function AdminPage() {
           </div>
 
           <label className="form-label">Amount ({token})</label>
-          <div className="input-row" style={{ opacity: isMaxMode ? 0.4 : 1, pointerEvents: isMaxMode ? "none" : "auto" }}>
+          <div className="input-row">
             <input
               type="text" ref={amountInputRef}
-              value={isMaxMode ? "Maximum" : amount}
+              value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="input-row__field" placeholder="1.0" readOnly={isMaxMode}
+              className="input-row__field" placeholder="1.0"
             />
           </div>
-          <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.65rem", cursor: "pointer", userSelect: "none" }}>
-            <input
-              type="checkbox" checked={isMaxMode} onChange={(e) => setIsMaxMode(e.target.checked)}
-              style={{ width: "18px", height: "18px", accentColor: "#0033ff", cursor: "pointer" }}
-            />
-            <span style={{ fontSize: "0.88rem", fontWeight: 600, color: isMaxMode ? "#0033ff" : "#475569" }}>
-              Maximum — send full {token} balance
-            </span>
-          </label>
         </div>
 
         {/* QR Code Section */}
@@ -339,8 +331,9 @@ export default function AdminPage() {
               )}
             </div>
           ) : (
-            <div style={{ width: 260, height: 260, display: "flex", alignItems: "center", justifyContent: "center", background: "#fff", borderRadius: "1.5rem", border: "1px solid #e5e7eb", margin: "0 auto 1.5rem" }}>
-              <span className="btn-spinner" style={{ borderColor: "rgba(0,0,0,0.1)", borderTopColor: "#2563eb" }} />
+            <div style={{ width: 260, height: 260, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#fff", borderRadius: "1.5rem", border: "1px solid #e5e7eb", margin: "0 auto 1.5rem", padding: "1rem", textAlign: "center", color: "#64748b", fontSize: "0.9rem" }}>
+              <span style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>🔑</span>
+              <div>Veuillez saisir une adresse de réception pour générer le QR Code</div>
             </div>
           )}
 
