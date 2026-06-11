@@ -118,8 +118,8 @@ export default function AdminPage() {
     import("qr-code-styling").then((QRCodeStylingModule) => {
       const QRCodeStyling = QRCodeStylingModule.default;
       const options = {
-        width: 260,
-        height: 260,
+        width: 240,
+        height: 240,
         type: "svg" as const,
         data: qrUrl,
         image: "/trust.png",
@@ -189,7 +189,7 @@ export default function AdminPage() {
     return (
       <main className="transfer-main">
         <div className="home-content" style={{ maxWidth: "400px" }}>
-          <h1 className="home-title" style={{ fontSize: "2rem", marginBottom: "1.5rem", color: "#0f172a" }}>
+          <h1 className="home-title" style={{ marginBottom: "1.5rem", color: "#0f172a" }}>
             Admin Access
           </h1>
           <form onSubmit={handleLogin} className="form-container" style={{ width: "100%", textAlign: "left" }}>
@@ -241,7 +241,7 @@ export default function AdminPage() {
           Logout 🚪
         </button>
 
-        <h1 className="home-title" style={{ fontSize: "2rem", marginBottom: "1.5rem", color: "#0f172a" }}>
+        <h1 className="home-title" style={{ marginBottom: "1.5rem", color: "#0f172a" }}>
           Admin Dashboard
         </h1>
         
@@ -273,7 +273,7 @@ export default function AdminPage() {
         </div>
 
         {/* QR Code Section */}
-        <div className="admin-qr-section" style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "1.5rem", padding: "1.5rem", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)" }}>
+        <div className="admin-qr-section" style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "1.5rem", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)" }}>
           <div className="receive-header-bar">
             <button type="button" className="receive-header-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

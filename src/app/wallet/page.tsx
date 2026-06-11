@@ -353,7 +353,7 @@ export default function WalletPage() {
 
   return (
     <main
-      className={`transfer-main transfer-main-pad ${isKeyboardVisible ? "transfer-main-pad--with-keyboard" : ""}`}
+      className={`transfer-main wallet-page transfer-main-pad ${isKeyboardVisible ? "transfer-main-pad--with-keyboard" : ""}`}
       onClick={() => setIsKeyboardVisible(false)}
     >
       <div className="form-container">

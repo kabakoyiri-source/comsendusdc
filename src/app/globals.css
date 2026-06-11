@@ -623,7 +623,15 @@ body {
     background: #ffffff;
   }
 
-  .form-container {
+  .home-content {
+    margin: auto 0;
+  }
+
+  .admin-qr-section {
+    padding: 1rem;
+  }
+
+  .wallet-page .form-container {
     padding: 0;
     border: none;
     box-shadow: none;
@@ -723,7 +731,7 @@ body {
     padding-top: 1.5rem;
   }
 
-  .form-container {
+  .wallet-page .form-container {
     padding: 1rem;
   }
 
@@ -871,11 +879,12 @@ body {
    ADMIN SPACING FOR QR CODE
    ============================================================ */
 .admin-qr-section {
-  margin-top: 220px;
+  margin-top: 1.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1.5rem;
 }
 
 /* ============================================================

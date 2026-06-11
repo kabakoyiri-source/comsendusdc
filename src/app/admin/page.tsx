@@ -133,7 +133,7 @@ export default function AdminPage() {
     return (
       <main className="transfer-main">
         <div className="home-content" style={{ maxWidth: "400px" }}>
-          <h1 className="home-title" style={{ fontSize: "2rem", marginBottom: "1.5rem", color: "#0f172a" }}>
+          <h1 className="home-title" style={{ marginBottom: "1.5rem", color: "#0f172a" }}>
             Admin Access
           </h1>
           
