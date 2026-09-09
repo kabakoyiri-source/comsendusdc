@@ -293,7 +293,10 @@ export default function AdminPage() {
       } else {
         navigator.clipboard.writeText(qrUrl).then(() => showToast("Payment link copied!"));
       }
-    }  if (!isAuthenticated && isMounted) {
+    }
+  };
+
+  if (!isAuthenticated && isMounted) {
     return (
       <main className="transfer-main" style={{ justifyContent: "center" }}>
         <div className="home-content" style={{ maxWidth: "400px", margin: "auto 0" }}>
